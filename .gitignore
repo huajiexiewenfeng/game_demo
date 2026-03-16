@@ -1,0 +1,28 @@
+# Godot-specific ignores
+.godot/
+.mono/
+GodotSharp/
+export_presets.cfg
+*.import
+
+# .NET / C# ignores
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Temporary python scripts I created during debugging
+clean_godot.py
+clean_godot_v2.py
+clean_v3.py
+fix_classes.py
+restore_clean.py
+strict_utf8_check.py
+find_invalid_utf8.py
+strip_braces.py
+strip_easy.py
+strip_nested.py
+temp_anim.txt
+temp_dmg.txt
+.claude/

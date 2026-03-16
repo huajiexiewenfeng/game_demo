@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bfy1b4238pakl"]
+
+[ext_resource type="PackedScene" uid="uid://cax2a5105m2hw" path="res://Scenes/Player.tscn" id="1_playerr"]
+[ext_resource type="Script" uid="uid://cilcf44cwdp8t" path="res://Scripts/MonsterSpawner.cs" id="3_spawner"]
+[ext_resource type="Script" uid="uid://bvv4grw3peg80" path="res://Scripts/CheatPanel.cs" id="4_cheat"]
+[ext_resource type="Texture2D" uid="uid://i5kmq0mqwepr" path="res://Sprites/map_bg.png" id="5_mapbg"]
+
+[node name="Main" type="Node2D" unique_id=1319077158]
+
+[node name="MapBackground" type="Sprite2D" parent="." unique_id=178271697]
+position = Vector2(640, 360)
+scale = Vector2(3.0, 3.0)
+texture = ExtResource("5_mapbg")
+
+[node name="Player" parent="." unique_id=572250811 instance=ExtResource("1_playerr")]
+position = Vector2(532, 304)
+
+[node name="MonsterSpawner" type="Node2D" parent="." unique_id=236778779]
+script = ExtResource("3_spawner")
+
+[node name="CheatPanel" type="CanvasLayer" parent="." unique_id=1117675377]
+script = ExtResource("4_cheat")
+
+[node name="Panel" type="Panel" parent="CheatPanel" unique_id=946946203]
+visible = false
+offset_left = 20.0
+offset_top = 200.0
+offset_right = 380.0
+offset_bottom = 430.0
+
+[node name="VBox" type="VBoxContainer" parent="CheatPanel/Panel" unique_id=184934254]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="CheatPanel/Panel/VBox" unique_id=1171993281]
+layout_mode = 2
+text = "🛠 外挂调试面板 (F12 关闭)"
+horizontal_alignment = 1
+
+[node name="Separator1" type="HSeparator" parent="CheatPanel/Panel/VBox" unique_id=1891257272]
+layout_mode = 2
+
+[node name="ExpLabel" type="Label" parent="CheatPanel/Panel/VBox" unique_id=854699256]
+layout_mode = 2
+text = "经验倍率（拖动滑块）"
+
+[node name="ExpSlider" type="HSlider" parent="CheatPanel/Panel/VBox" unique_id=1977097361]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="MultiplierDisplay" type="Label" parent="CheatPanel/Panel/VBox" unique_id=927619147]
+layout_mode = 2
+text = "当前经验倍率：×1"
+
+[node name="Separator2" type="HSeparator" parent="CheatPanel/Panel/VBox" unique_id=1744258261]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="CheatPanel/Panel/VBox" unique_id=1521008372]
+layout_mode = 2
+text = "玩家信息..."
+autowrap_mode = 3

@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfy3a6217n3ix"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_asdfg"]
+[ext_resource type="Texture2D" path="res://Sprites/enemy_sheet.png" id="2_enemytex"]
+[ext_resource type="Script" path="res://Scripts/CharacterAnimator.cs" id="3_animator"]
+[ext_resource type="Shader" path="res://Scripts/transparent.gdshader" id="4_shader"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.2, 0.2, 0.2, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0.8, 0.1, 0.1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mn78p"]
+size = Vector2(48, 64)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enemy"]
+shader = ExtResource("4_shader")
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_asdfg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_enemy")
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_enemytex")
+hframes = 2
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_mn78p")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -33.0
+offset_top = -43.0
+offset_right = 35.0
+offset_bottom = -28.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+value = 100.0
+show_percentage = false
+
+[node name="Animator" type="Node" parent="."]
+script = ExtResource("3_animator")
