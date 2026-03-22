@@ -16,6 +16,7 @@ public partial class SkillHotbar : Control
     private List<Label> _nameLabels = new List<Label>();
     private List<Label> _cdLabels = new List<Label>();
     private List<Label> _keyLabels = new List<Label>();
+    private List<ColorRect> _cdMasks = new List<ColorRect>();
 
     public override void _Ready()
     {
@@ -54,13 +55,20 @@ public partial class SkillHotbar : Control
             cdLbl.AddThemeFontSizeOverride("font_size", 10);
             vbox.AddChild(cdLbl);
 
+            var cdMask = new ColorRect();
+            cdMask.Color = new Color(0f, 0f, 0f, 0.7f);
+            cdMask.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+            cdMask.Visible = false;
+
             panel.AddChild(vbox);
+            panel.AddChild(cdMask); // 放置在顶层覆盖
             _slotRow.AddChild(panel);
 
             _slots.Add(panel);
             _nameLabels.Add(nameLbl);
             _cdLabels.Add(cdLbl);
             _keyLabels.Add(keyLbl);
+            _cdMasks.Add(cdMask);
         }
     }
 
@@ -72,9 +80,8 @@ public partial class SkillHotbar : Control
 
         for (int i = 0; i < MAX_SLOTS; i++)
         {
-            if (i < sm.LearnedSkills.Count)
+            if (sm.HotbarMapping.TryGetValue(i, out SkillData skill))
             {
-                var skill = sm.LearnedSkills[i];
                 _nameLabels[i].Text = skill.SkillName;
 
                 float cd = sm.GetCooldownRemaining(skill.SkillName);
@@ -82,11 +89,16 @@ public partial class SkillHotbar : Control
                 {
                     _cdLabels[i].Text = $"{cd:F1}s";
                     _nameLabels[i].AddThemeColorOverride("font_color", new Color(0.5f, 0.5f, 0.5f));
+                    float progress = cd / skill.Cooldown;
+                    _cdMasks[i].Visible = true;
+                    // 从底部开始的遮罩降低效果（改变顶部锚点）
+                    _cdMasks[i].AnchorTop = 1.0f - progress;
                 }
                 else
                 {
                     _cdLabels[i].Text = "就绪";
                     _nameLabels[i].AddThemeColorOverride("font_color", Colors.White);
+                    _cdMasks[i].Visible = false;
                 }
 
                 // 高亮激活状态背景
@@ -100,6 +112,7 @@ public partial class SkillHotbar : Control
                 _cdLabels[i].Text = "";
                 _slots[i].SelfModulate = new Color(0.2f, 0.2f, 0.2f, 0.7f);
                 _nameLabels[i].AddThemeColorOverride("font_color", new Color(0.45f, 0.45f, 0.45f));
+                _cdMasks[i].Visible = false;
             }
         }
     }

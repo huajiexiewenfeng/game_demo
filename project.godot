@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="LegendOfMir-Demo"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/SafeZone.tscn"
 config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 
 [autoload]
